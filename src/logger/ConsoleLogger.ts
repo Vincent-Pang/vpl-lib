@@ -5,7 +5,7 @@ import { ILogger } from './ILogger';
 export class ConsoleLogger implements ILogger {
   private logger: winston.Logger;
 
-  public constructor() {
+  public constructor(logLevel: string = 'info') {
     this.logger = winston.createLogger({
       transports: [new winston.transports.Console()],
       format: winston.format.combine(
@@ -14,7 +14,8 @@ export class ConsoleLogger implements ILogger {
         winston.format.printf(info => {
           return `${info.timestamp} ${info.level.toUpperCase()} ${info.message}`;
         }),
-      )
+      ),
+      level: logLevel,
     });
   }
 
